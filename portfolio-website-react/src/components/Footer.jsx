@@ -4,16 +4,22 @@ import Typography from "@mui/material/Typography";
 
 export default function Footer() {
   return (
-    <Box sx={{ mb: 5 }}>
+    <Box
+      sx={{
+        bgcolor: "#0d2238",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        py: 3,
+        textAlign: "center",
+      }}
+    >
       <Typography
-        variant="body2"
-        color="#181B13"
-        mt={1}
-        fontFamily={"nunito, sans-serif"}
+        sx={{
+          fontSize: "0.82rem",
+          color: "rgba(255,255,255,0.32)",
+          fontFamily: "inherit",
+        }}
       >
-        {"Copyright © "}
-        Ryan Tang&nbsp;
-        {new Date().getFullYear()}. All Rights Reserved.
+        Designed & built by Ryan Tang · {new Date().getFullYear()}
       </Typography>
     </Box>
   );

@@ -8,111 +8,170 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["About Me", "Experience", "Projects", "Contact Me"];
-const pageIds = ["aboutme", "experience", "projects", "contactme"];
+const pages = ["About", "Skills", "Experience", "Projects", "Contact"];
+const pageIds = ["aboutme", "skills", "experience", "projects", "contactme"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [scrolled, setScrolled] = React.useState(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  React.useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const variants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: "-100%" },
-  };
+  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
     <AppBar
       position="sticky"
+      elevation={0}
       sx={{
-        width: "100%",
-        bgcolor: "rgba(17, 45, 78, 0.9)",
-        backdropFilter: "blur(10px)",
-        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-        top: 0,
+        bgcolor: scrolled ? "rgba(17,45,78,0.98)" : "rgba(17,45,78,0.88)",
+        backdropFilter: "blur(12px)",
+        borderBottom: scrolled
+          ? "1px solid rgba(63,114,175,0.2)"
+          : "1px solid transparent",
+        transition: "all 0.3s ease",
       }}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ py: 0.75 }}>
+          {/* Brand */}
+          <ScrollLink
+            to="aboutme"
+            smooth
+            duration={500}
+            style={{ cursor: "pointer", textDecoration: "none" }}
+          >
+            <Typography
+              sx={{
+                fontWeight: 800,
+                fontSize: "1.4rem",
+                color: "#ffffff",
+                letterSpacing: "0.02em",
+                fontFamily: "inherit",
+                "& span": { color: "#3F72AF" },
+              }}
+            >
+              Ryan<span>.</span>
+            </Typography>
+          </ScrollLink>
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          {/* Desktop nav links */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              gap: 0.5,
+              alignItems: "center",
+            }}
+          >
+            {pages.map((page, index) => (
+              <ScrollLink
+                key={page}
+                to={pageIds[index]}
+                smooth
+                duration={500}
+                offset={-70}
+                style={{ cursor: "pointer" }}
+              >
+                <Box
+                  sx={{
+                    px: 1.5,
+                    py: 1,
+                    color: "rgba(255,255,255,0.8)",
+                    fontWeight: 500,
+                    fontSize: "0.88rem",
+                    fontFamily: "inherit",
+                    letterSpacing: "0.02em",
+                    position: "relative",
+                    cursor: "pointer",
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: "4px",
+                      left: "12px",
+                      right: "12px",
+                      height: "2px",
+                      borderRadius: "1px",
+                      bgcolor: "#3F72AF",
+                      transform: "scaleX(0)",
+                      transition: "transform 0.25s ease",
+                    },
+                    "&:hover": {
+                      color: "#ffffff",
+                      "&::after": { transform: "scaleX(1)" },
+                    },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  {page}
+                </Box>
+              </ScrollLink>
+            ))}
+          </Box>
+
+          {/* Mobile menu */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              sx={{ color: "rgba(255,255,255,0.9)" }}
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
               anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
+              PaperProps={{
+                sx: {
+                  bgcolor: "#112D4E",
+                  border: "1px solid rgba(63,114,175,0.25)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+                  mt: 0.5,
+                  minWidth: 160,
+                },
               }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ "&:hover": { bgcolor: "rgba(63,114,175,0.15)" } }}
+                >
                   <ScrollLink
                     to={pageIds[index]}
-                    smooth={true}
+                    smooth
                     duration={500}
-                    offset={0}
-                    style={{ textDecoration: "none", color: "#112D4E" }}
+                    offset={-70}
                     onClick={handleCloseNavMenu}
+                    style={{
+                      textDecoration: "none",
+                      color: "rgba(255,255,255,0.85)",
+                      width: "100%",
+                    }}
                   >
-                    <Typography textAlign="center" fontFamily="inherit">
+                    <Typography
+                      fontFamily="inherit"
+                      fontSize="0.9rem"
+                      fontWeight={500}
+                    >
                       {page}
                     </Typography>
                   </ScrollLink>
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, index) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "#F9F7F7",
-                  display: "block",
-                  fontFamily: "inherit",
-                  fontWeight: 700,
-                }}
-              >
-                <ScrollLink
-                  to={pageIds[index]}
-                  smooth={true}
-                  duration={500}
-                  offset={0}
-                  style={{ textDecoration: "none", color: "#F9F7F7" }}
-                >
-                  {page}
-                </ScrollLink>
-              </Button>
-            ))}
           </Box>
         </Toolbar>
       </Container>

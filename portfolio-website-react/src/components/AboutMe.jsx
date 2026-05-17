@@ -156,7 +156,7 @@ function AboutMe() {
               maxWidth: 480,
             }}
           >
-            A Information Systems graduate from NUS with a passion for building
+            An Information Systems graduate from NUS with a passion for building
             intelligent software solutions that bridge AI and real-world impact.
           </Typography>
 

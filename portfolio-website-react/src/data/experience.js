@@ -28,10 +28,10 @@ const experiences = [
     role: "Teaching Assistant",
     company: "NUS Computing",
     location: "Singapore",
-    subtitle: "IS2102 · IS3106 · CS1010J",
+    subtitle: "IS3106 · IS2102 · CS1010J",
     logo: "https://res.cloudinary.com/dorg7gesr/image/upload/v1715162634/420941674_770595455104734_9001455890992117025_n_wceal2.jpg",
     bullets: [
-      "Delivered weekly tutorial content, provided consultations, and graded assignments across three modules — IS2102, IS3106, and CS1010J.",
+      "Delivered weekly tutorial content, provided consultations, and graded assignments across three modules — IS3106, IS2102, and CS1010J.",
       "Consistently received student feedback above the faculty average across all teaching stints.",
     ],
   },

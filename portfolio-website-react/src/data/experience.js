@@ -52,8 +52,8 @@ const experiences = [
     location: "Singapore",
     logo: "https://res.cloudinary.com/dorg7gesr/image/upload/v1715163000/LTA-logo-1_rljf28.jpg",
     bullets: [
-      "Attached to Sengkang MRT/LRT Depot under a Rolling Stock Engineer as part of the Youth Transport Engineer Program",
-      "Successfully collaborated with two other students to complete a project on reducing sound pollution generated from train horns",
+      "Attached to Sengkang MRT/LRT Depot under a Rolling Stock Engineer as part of the Youth Transport Engineer Program.",
+      "Successfully collaborated with two other students to complete a project on reducing sound pollution generated from train horns.",
     ],
   },
 ];
